@@ -1,0 +1,58 @@
+* {
+  padding: 0;
+  margin: 0; }
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit; }
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box; }
+
+body {
+  background-image: linear-gradient(to right bottom, #f85032, #e73827);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh; }
+
+.container {
+  max-width: 60rem;
+  margin: 5rem auto;
+  display: flex;
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3); }
+
+.nav {
+  display: flex;
+  flex: 5%;
+  flex-direction: column;
+  align-items: center;
+  background-color: #333333; }
+
+.icon {
+  background-color: #fff;
+  width: 5rem;
+  height: 5rem;
+  padding: 1.5rem;
+  fill: #fff;
+  transition: all 0.3s;
+  -webkit-mask-size: 2.5rem;
+  -webkit-mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: 2.5rem;
+  mask-position: center;
+  mask-repeat: no-repeat; }
+  .icon-play {
+    -webkit-mask-image: url(../img/SVG/game-controller.svg);
+    mask-image: url(../img/SVG/game-controller.svg); }
+  .icon-gauge {
+    -webkit-mask-image: url(../img/SVG/gauge.svg);
+    mask-image: url(../img/SVG/gauge.svg); }
+  .icon:hover {
+    background-color: #f85032;
+    cursor: pointer; }
+
+#display {
+  flex: 95%;
+  background-color: #f7f7f7; }
