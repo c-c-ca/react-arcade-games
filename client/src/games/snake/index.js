@@ -27,21 +27,16 @@ function runGame() {
   if (!display) display = new View();
 
   let state = State.start();
+
   controller.register(direction => {
-    state = state.updateDirection(direction);
+    state = state.scheduleNextTurn(direction);
   });
 
-  let prevState = null;
   return new Promise(resolve => {
     runAnimation((time, update) => {
-      if (update) {
-        prevState = state;
-        state = state.update();
-      }
+      if (update) state = state.update();
 
-      if (prevState != null) {
-        display.syncState(state, prevState, time);
-      }
+      display.syncState(state, time);
 
       if (state.gameOver()) {
         display.clearDisplay();

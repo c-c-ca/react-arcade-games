@@ -1,37 +1,66 @@
 import { UP, DOWN, LEFT, RIGHT } from './Directions';
 
+// Models a two-dimensional snake in the classic 1970's arcade game.
 export default class Snake {
-  constructor(tail, length) {
+  constructor(tail) {
     this.tail = tail;
-    this.length = length;
   }
 
+  // A Snake with the specified head can eat the item at the given position
+  static canEat(head, item) {
+    return head.x == item.x && head.y == item.y;
+  }
+
+  // The head of this Snake.
   get head() {
     return this.tail[0];
   }
 
+  get length() {
+    return this.tail.length;
+  }
+
+  // The current direction for this Snake.
+  get direction() {
+    return this.head.direction;
+  }
+
+  // The head and one other segment of the tail occupy the same position.
   get isEatingSelf() {
     return this.tail
       .slice(1, this.tail.length)
-      .some(({ x, y }) => this.head.x == x && this.head.y == y);
+      .some(segment => Snake.canEat(this.head, segment));
   }
 
-  canEat(food) {
-    return this.tail[0].x == food.x && this.tail[0].y == food.y;
+  // This Snake can move in the specified direction.
+  canMove(direction) {
+    return this.isAPerpendicularTurn(direction) || this.length == 1;
   }
 
-  eat() {
-    return new Snake(this.tail, this.length + 1);
+  // The specified direction is perpendicular to the current direction
+  // for this Snake.
+  isAPerpendicularTurn(direction) {
+    return (
+      (direction == LEFT || direction == RIGHT) ==
+      (this.direction == UP || this.direction == DOWN)
+    );
   }
 
-  update(direction) {
-    return new Snake(this.updateTail(direction), this.length);
+  // Update this Snake according to the specified direction.
+  update(direction, food) {
+    return new Snake(this.updateTail(direction, food));
   }
 
-  updateTail(direction) {
-    return [this.updateHead(direction), ...this.tail.slice(0, this.length - 1)];
+  // Update the tail for this snake.
+  updateTail(direction, food) {
+    const newHead = this.updateHead(direction);
+
+    if (!Snake.canEat(newHead, food)) this.tail.pop();
+
+    return [newHead, ...this.tail];
   }
 
+  // Position the head of this Snake according to the specified direction.
   updateHead(direction) {
     let { x, y } = this.head;
     switch (direction) {
@@ -48,6 +77,6 @@ export default class Snake {
         x++;
         break;
     }
-    return { x, y };
+    return { x, y, direction };
   }
 }

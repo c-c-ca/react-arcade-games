@@ -1,6 +1,8 @@
 import { FOOD_COLOR, TAIL_COLOR, BACKGROUND_COLOR } from './Colors';
 import { LEVEL_WIDTH, LEVEL_HEIGHT, MS_PER_CELL, RESOLUTION } from './config';
+import { UP, DOWN, LEFT, RIGHT } from './Directions';
 
+// The game display.
 export default class View {
   constructor() {
     this.canvas = document.getElementById('display');
@@ -18,33 +20,51 @@ export default class View {
     this.cellHeight = this.canvas.height / LEVEL_HEIGHT;
   }
 
-  static currentLocation(a, b, time) {
-    return (a - b) * ((time % MS_PER_CELL) / MS_PER_CELL) + b;
+  // Determine location on the canvas for each tail segment.
+  static currentLocation(x, y, direction, time) {
+    let frac = 1 - (time % MS_PER_CELL) / MS_PER_CELL;
+
+    switch (direction) {
+      case UP:
+        y += frac;
+        break;
+      case DOWN:
+        y -= frac;
+        break;
+      case LEFT:
+        x += frac;
+        break;
+      case RIGHT:
+        x -= frac;
+        break;
+    }
+
+    return { x, y };
   }
 }
 
-View.prototype.syncState = function (state, prevState, time) {
+// Update the display according to the current state and time.
+View.prototype.syncState = function (state, time) {
   this.clearDisplay();
-  this.drawSnake(state.snake, prevState.snake, time);
+  this.drawSnake(state.snake, time);
   this.drawFood(state.food);
 };
 
+// Clear the display.
 View.prototype.clearDisplay = function () {
   this.cx.fillStyle = BACKGROUND_COLOR;
   this.cx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 };
 
-View.prototype.drawSnake = function (snake, prevSnake, time) {
-  prevSnake.tail.forEach(({ x, y }, i) => {
-    const next = snake.tail[i];
-    this.drawCell(
-      View.currentLocation(next.x, x, time),
-      View.currentLocation(next.y, y, time),
-      TAIL_COLOR
-    );
+// Draw the Snake to the screen.
+View.prototype.drawSnake = function (snake, time) {
+  snake.tail.forEach(({ x, y, direction }) => {
+    const location = View.currentLocation(x, y, direction, time);
+    this.drawCell(location.x, location.y, TAIL_COLOR);
   });
 };
 
+// Draw the food to the screen.
 View.prototype.drawFood = function (food) {
   this.drawCell(food.x, food.y, FOOD_COLOR);
 };
