@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "14.15.1",
+    "npm": "6.14.8"
+  },
   "scripts": {
     "watch:sass": "node-sass client/src/assets/sass/main.scss client/src/assets/css/style.css -w",
     "start": "node index.js",
