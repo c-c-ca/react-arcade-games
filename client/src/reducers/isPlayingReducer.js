@@ -5,7 +5,6 @@ export default (state = false, action) => {
     case GAME_START:
       return true;
     case GAME_OVER:
-      console.log(action.payload);
       return false;
     default:
       return state;
