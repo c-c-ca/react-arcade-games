@@ -3,9 +3,11 @@
 ## Getting Started
 
 1. Install project dependencies: `npm install`.
-2. Create a new file `config/dev.js` to store API credentials.
+2. Create a new file `config/dev.js` to export API credentials for development.
 
 ```
+// config/dev.js
+
 module.exports = {
   googleClientID: <GOOGLE_CLIENT_ID>,
   googleClientSecret: <GOOGLE_CLIENT_SECRET>,

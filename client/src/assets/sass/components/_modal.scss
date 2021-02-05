@@ -1,0 +1,50 @@
+.modal {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba($color-black, 0.8);
+  z-index: 3000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.8s ease;
+
+  &--visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__header {
+    border-bottom: 1px solid rgba($color-white, 0.8);
+    width: 90%;
+    text-align: center;
+    padding-bottom: 1.5rem;
+  }
+
+  &__content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 50%;
+    padding: 2rem;
+    background-color: $color-grey-dark;
+    box-shadow: 0rem 4rem rgba($color-black, 0.2);
+    overflow: hidden;
+    border-radius: 3px;
+
+    opacity: 0;
+    transition: all 0.5s 0.2s;
+
+    &--visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+}

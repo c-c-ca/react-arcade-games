@@ -1,40 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { runGame } from '../actions';
-import '../assets/css/style.css';
 
 class Navigation extends Component {
-  renderIcons() {
-    const { isPlaying, runGame } = this.props;
+  renderButton = () => {
+    let text, path;
 
-    const icons = [
-      {
-        name: 'play',
-        onClickHandler: () => {
-          if (!isPlaying) runGame();
-        },
-      },
-      { name: 'gauge' },
-    ];
+    switch (this.props.auth) {
+      case null:
+        text = 'Loading';
+        path = '#';
+        break;
+      case false:
+        text = 'Sign In With Google';
+        path = '/auth/google';
+        break;
+      default:
+        text = 'Sign Out';
+        path = '/api/logout';
+        break;
+    }
 
-    return icons.map(({ name, onClickHandler = () => {} }) => (
-      <li
-        key={name}
-        className={`icon icon-${name}`}
-        onClick={onClickHandler}
-      ></li>
-    ));
-  }
+    return (
+      <a href={path} className="btn btn--transparent">
+        {text}
+      </a>
+    );
+  };
 
   render() {
-    return (
-      <nav className="nav">
-        <ul>{this.renderIcons()}</ul>
-      </nav>
-    );
+    return <nav className="navigation">{this.renderButton()}</nav>;
   }
 }
 
-const mapStateToProps = ({ isPlaying }) => ({ isPlaying });
+const mapStateToProps = ({ auth }) => ({ auth });
 
-export default connect(mapStateToProps, { runGame })(Navigation);
+export default connect(mapStateToProps)(Navigation);

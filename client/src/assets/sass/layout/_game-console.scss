@@ -1,0 +1,29 @@
+.game-console {
+  max-width: 60rem;
+  margin: 1rem auto;
+  display: flex;
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+
+  &__display {
+    flex: 95%;
+    background-color: $color-off-white;
+
+    &:before {
+      content: '';
+      float: left;
+      padding-top: 100%;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    flex: 5%;
+    flex-direction: column;
+    align-items: center;
+    background-color: $color-grey-dark;
+  }
+
+  &__player {
+    width: 100%;
+  }
+}

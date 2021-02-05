@@ -1,0 +1,45 @@
+.leader-board {
+  height: 100%;
+
+  &__head {
+    display: flex;
+    background-color: $color-grey-dark;
+    color: $color-off-white;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+
+    & > * {
+      padding: 1rem;
+      text-align: center;
+
+      &:not(:first-child) {
+        border-left: 1px solid rgba($color-off-white, 0.2);
+      }
+    }
+  }
+
+  &__row {
+    display: flex;
+    font-size: 1.4rem;
+    color: rgba($color-grey-dark, 0.9);
+
+    & > * {
+      border-bottom: 1px solid rgba($color-grey-dark, 0.2);
+      padding: 1rem 1rem;
+      text-align: center;
+    }
+  }
+
+  &__rank {
+    flex: 0 0 15%;
+  }
+
+  &__username {
+    flex: 0 0 50%;
+  }
+
+  &__score {
+    flex: 1;
+  }
+}

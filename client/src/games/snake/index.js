@@ -3,7 +3,6 @@ import View from './View';
 import Controller from './Controller';
 import { MS_PER_CELL } from './config';
 
-let display = null;
 let controller = new Controller();
 
 function runAnimation(frameFunc) {
@@ -24,8 +23,7 @@ function runAnimation(frameFunc) {
 }
 
 function runGame() {
-  if (!display) display = new View();
-
+  let display = new View();
   let state = State.start();
 
   controller.register(direction => {
